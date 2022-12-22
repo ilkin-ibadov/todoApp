@@ -22,9 +22,6 @@ export default function CardManagement() {
 
   const url = `https://l.study-link-demo.com/cards`;
   let author = data;
-  let status;
-
-  // console.log(status)
 
   let headers = new Headers();
 
@@ -79,16 +76,14 @@ export default function CardManagement() {
     if (author && author.includes("@")) {
       fetch(url + "/" + author)
         .then((response) => {
-          status = response.status;
           return response.json();
         })
         .then((data) => {
           setCards(data);
+        })
+        .catch((err) => {
+          toastSomethingWentWrong();
         });
-      if (status) {
-        navigate("/");
-        toastSomethingWentWrong();
-      }
     } else {
       navigate("/");
     }
@@ -104,6 +99,8 @@ export default function CardManagement() {
         description: newCardDescription,
         author: author,
       }),
+    }).catch((err) => {
+      toastSomethingWentWrong();
     });
     setToggleCreateCard({ state: "" });
     setWithOverlay("");
@@ -121,6 +118,8 @@ export default function CardManagement() {
         title: editedCardTitle,
         description: editedCardDescription,
       }),
+    }).catch((err) => {
+      toastSomethingWentWrong();
     });
     setToggleEditCard({ state: "" });
     setWithOverlay("");
@@ -134,6 +133,8 @@ export default function CardManagement() {
       method: "DELETE",
       mode: "cors",
       headers: headers,
+    }).catch((err) => {
+      toastSomethingWentWrong();
     });
     setToggleDeleteCard({ state: "" });
     setWithOverlay("");
