@@ -1,13 +1,445 @@
-body {
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;900&display=swap");
+
+* {
+  border: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Inter", sans-serif;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.mainContainer,
+.overlay {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.createCardBtnPlaceholder {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.cardManagement {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.cardManagement.withOverlay {
+  height: 100vh;
+  overflow: hidden;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: #0a0a0a85;
+}
+
+.closeModalPlaceholder {
+  width: 100%;
+  height: 1rem;
+  position: relative;
+}
+
+.closeModal {
+  width: 1rem;
+  height: 1rem;
+  background-color: #fb2828;
+  border-radius: 50%;
+  position: absolute;
+  right: 0.5rem;
+  top: -1.5rem;
+}
+
+.closeModal:hover {
+  cursor: pointer;
+}
+
+.loginCard,
+.createCard,
+.editCard,
+.deleteCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 0.5rem;
+  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.15);
+  width: 40%;
+  padding: 2rem 0;
+  background-color: white;
+}
+
+.loginCard span,
+.cardTitle,
+.createCard span,
+.editCard span,
+.deleteCard span {
+  color: black;
+  font-size: 2rem;
+  font-weight: 900;
+  line-height: 2rem;
+  margin-bottom: 2rem;
+}
+
+.loginCard form,
+.createCard form,
+.editCard form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.emailInputPlaceholder,
+.createCardTitlePlaceholder,
+.createCardDescriptionPlaceholder,
+.editCardTitlePlaceholder,
+.editCardDescriptionPlaceholder,
+.deleteCardTitlePlaceholder {
+  display: flex;
+  flex-direction: column;
+  margin: 1rem 0;
+  width: 80%;
+}
+
+.createCardTitlePlaceholder,
+.createCardDescriptionPlaceholder,
+.editCardTitlePlaceholder,
+.editCardDescriptionPlaceholder {
+  width: 90%;
+}
+
+.emailInputPlaceholder label,
+.createCardTitlePlaceholder label,
+.createCardDescriptionPlaceholder label,
+.createCard p,
+.editCardTitlePlaceholder label,
+.editCardDescriptionPlaceholder label {
+  font-size: 1.25rem;
+  color: #616161;
+}
+
+.deleteCard p {
+  margin-bottom: 2rem;
+}
+
+.emailInputPlaceholder input,
+.createCardTitlePlaceholder input,
+.createCardDescriptionPlaceholder input,
+.editCardTitlePlaceholder input,
+.editCardDescriptionPlaceholder input {
+  margin: 0.5rem 0;
+  border: 1px solid lightgray;
+  border-radius: 0.25rem;
+  padding: 1rem;
+}
+
+.emailInputPlaceholder input:focus {
+  border: #f6ab1a solid 1px;
+}
+
+.loginCard form .submitEmailBtn,
+.logOutBtn,
+.createCardBtn,
+.cardBtn,
+.createCardBtns input,
+.createCardBtns button,
+.editCardBtns input,
+.editCardBtns button,
+.deleteCardBtns input,
+.deleteCardBtns button {
+  padding: 1rem 4rem;
+  background-color: #f6b91a;
+  border-radius: 0.8rem;
+  font-weight: 600;
+  font-size: 1.25rem;
+  transition: ease 0.2s;
+}
+
+.loginCard form .submitEmailBtn {
+  background-color: #d7d7d7;
+  color: #a4a4a4;
+  pointer-events: none;
+}
+
+.loginCard form .submitEmailBtn.active {
+  background-color: #f6b91a;
+  color: black;
+  pointer-events: all;
+}
+
+.loginCard form .submitEmailBtn:hover {
+  background-color: #f6ab1a;
+  transition: ease 0.2s;
+  cursor: pointer;
+}
+
+.loginCard form .submitEmailBtn:focus {
+  background-color: #f6911a;
+}
+
+.createCardBtn {
+  width: fit-content;
+  margin: 1.5rem;
+  margin-bottom: 0;
+}
+
+.cardBtn,
+.createCardBtns button,
+.createCardBtns input,
+.editCardBtns input,
+.editCardBtns button,
+.deleteCardBtns input,
+.deleteCardBtns button {
+  padding: 1rem 2rem;
+  border-radius: 0.5rem;
+  margin: 0 0.5rem;
+}
+
+.cardManagementNavbar {
+  background-color: #e7e7e7;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+}
+
+.cardsPlaceholder {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  width: 100%;
+  height: 100%;
+  padding: 1.5rem;
+  gap: 1rem;
+}
+
+.card {
+  width: 100%;
+  height: 15rem;
+  background-color: #efefef;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.cardBody,
+.cardTitle {
+  padding: 1rem;
+}
+
+.cardBody {
+  color: #555555;
+  font-weight: 600;
+  height: 8rem;
+  overflow-y: scroll;
+  margin: 1rem 0;
+}
+
+.cardTitle {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  font-weight: 600;
+}
+
+.cardBtns,
+.createCardBtns,
+.editCardBtns,
+.deleteCardBtns {
+  width: 100%;
+  background-color: #d9d9d9;
+  padding: 1rem;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.deleteCardBtns {
+  justify-content: center;
+}
+
+.createCardBtns,
+.editCardBtns,
+.deleteCardBtns {
+  background-color: transparent;
+  padding: 0;
+  width: 90%;
+}
+
+button {
+  transition: ease 0.2s;
+}
+
+button:hover,
+.createCardBtns input:hover,
+.editCardBtns input:hover,
+.deleteCardBtns input:hover {
+  background-color: #f6ab1a;
+  transition: ease 0.2s;
+  cursor: pointer;
+}
+
+button:focus,
+.createCardBtns input:focus,
+.editCardBtns input:focus,
+.deleteCardBtns input:focus {
+  background-color: #f6911a;
+}
+
+.createCardBtns button,
+.editCardBtns button,
+.deleteCardBtns button {
+  background-color: white;
+  border: 1px solid lightgray;
+  border-radius: 1rem;
+  transition: ease 0.2s;
+}
+
+.createCardBtns button:hover,
+.editCardBtns button:hover,
+.deleteCardBtns button:hover {
+  background-color: #dfdfdf;
+  transition: ease 0.2s;
+}
+
+.createCardBtns button:focus,
+.editCardBtns button:focus,
+.deleteCardBtns button:focus {
+  background-color: #bebebe;
+}
+
+.createCardBtns input,
+.editCardBtns input,
+.deleteCardBtns input {
+  border-radius: 1rem;
+  transition: ease 0.2s;
+}
+
+.overlay,
+.createCard,
+.editCard,
+.deleteCard {
+  display: none;
+}
+
+.overlay.active,
+.createCard.active,
+.editCard.active,
+.deleteCard.active {
+  display: flex;
+}
+
+.deleteCard p {
+  width: 90%;
+  text-align: center;
+}
+
+.red {
+  border-color: #ff4141 !important;
+  background-color: #ffcccc;
+  color: #ff4141 !important;
+}
+
+label.red {
+  background-color: transparent;
+}
+
+@media screen and (max-width: 1366px) {
+  .cardsPlaceholder {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .loginCard,
+  .createCard,
+  .editCard,
+  .deleteCard {
+    width: 50%;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .cardsPlaceholder {
+    grid-template-columns: repeat(1, 1fr);
+    padding: 0.5rem;
+  }
+
+  .createCardBtnPlaceholder {
+    justify-content: center;
+  }
+
+  .createCardBtn {
+    margin: 0.5rem !important;
+    padding: 1rem 3rem !important;
+    justify-self: center;
+    width: 100%;
+  }
+
+  .logOutBtn {
+    padding: 1rem;
+  }
+
+  .loginCard,
+  .createCard,
+  .editCard,
+  .deleteCard {
+    width: 90%;
+  }
+
+  .overlay {
+    align-items: flex-start;
+    padding-top: 2rem;
+  }
+}
+
+@media screen and (max-width: 430px) {
+  .cardManagementNavbar,
+  .logOutBtn {
+    padding: 0.5rem;
+  }
+
+  .logOutBtn {
+    font-size: 1rem;
+  }
+
+  .cardManagement {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .cardBody,
+  .cardTitle,
+  .cardBtns {
+    padding: 0.75rem;
+  }
+
+  .cardBtns,
+  .createCardBtns,
+  .editCardBtns,
+  .deleteCardBtns {
+    justify-content: space-between !important;
+  }
+
+  .loginCard,
+  .createCard,
+  .editCard,
+  .deleteCard {
+    width: 95%;
+  }
+
+  .createCardBtns,
+  .editCardBtns,
+  .deleteCardBtns {
+    width: 100%;
+  }
 }
